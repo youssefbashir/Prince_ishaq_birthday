@@ -1,0 +1,476 @@
+/* ==========================================================================
+   PRINCE ISHAQ — MAGICAL BIRTHDAY WEBSITE STYLES
+   Color Palette: Deep Navy (#0B1220), Metallic Gold (#D4AF69), Ivory (#FFF9EE)
+   ========================================================================== */
+
+:root {
+    --bg-dark: #0B1220;
+    --bg-navy: #162033;
+    --bg-card: #1B2A41;
+    --gold-primary: #D4AF69;
+    --gold-light: #F1D58A;
+    --text-light: #FFF9EE;
+    --text-muted: #94A3B8;
+    --font-royal: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-body);
+}
+
+/* Canvas for background stars */
+#stars-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Audio button floating control */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(22, 32, 51, 0.85);
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-light);
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+}
+
+.music-btn:hover {
+    background: var(--gold-primary);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(212, 175, 105, 0.5);
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   1. WELCOME SCREEN
+   ========================================================================== */
+
+.welcome-container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.crown-emblem {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 105, 0.6));
+    animation: float 3s ease-in-out infinite;
+}
+
+.subtitle-royal {
+    font-family: var(--font-royal);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: var(--gold-primary);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.main-title {
+    font-family: var(--font-royal);
+    font-size: 4rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(241, 213, 138, 0.4);
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+}
+
+.gold-button {
+    background: transparent;
+    border: 2px solid var(--gold-primary);
+    color: var(--gold-light);
+    padding: 14px 36px;
+    font-size: 1.1rem;
+    font-family: var(--font-royal);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    border-radius: 40px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(212, 175, 105, 0.2);
+}
+
+.gold-button:hover {
+    background: var(--gold-primary);
+    color: var(--bg-dark);
+    box-shadow: 0 0 25px rgba(212, 175, 105, 0.7);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   2. ENCHANTED STORYBOOK
+   ========================================================================== */
+
+.storybook-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.book-container {
+    position: relative;
+    width: 90%;
+    max-width: 850px;
+    height: 550px;
+    perspective: 1500px;
+}
+
+.storybook {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.book-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: var(--bg-navy);
+    border: 2px solid var(--gold-primary);
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.6s ease;
+    overflow: hidden;
+}
+
+.book-page.active-page {
+    opacity: 1;
+    visibility: visible;
+    transform: rotateY(0deg);
+    z-index: 10;
+}
+
+/* Page content layouts */
+.cover-content {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: radial-gradient(circle, var(--bg-card) 0%, var(--bg-dark) 100%);
+}
+
+.cover-border {
+    border: 2px dashed var(--gold-primary);
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-border h2 {
+    font-family: var(--font-royal);
+    font-size: 2.8rem;
+    color: var(--gold-light);
+    margin: 1rem 0;
+}
+
+.cover-border .dedication {
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+.cover-border .hint-text {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--gold-primary);
+}
+
+.page-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    padding: 30px;
+    gap: 25px;
+    align-items: center;
+}
+
+.page-inner.reverse {
+    grid-template-columns: 1fr 1fr;
+}
+
+.photo-frame {
+    width: 100%;
+    height: 100%;
+    max-height: 450px;
+    border: 3px solid var(--gold-primary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    background: #000;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.story-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+}
+
+.story-text h3 {
+    font-family: var(--font-royal);
+    color: var(--gold-primary);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.story-text h4 {
+    font-family: var(--font-royal);
+    color: var(--gold-light);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.story-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+.page-number {
+    position: absolute;
+    bottom: -20px;
+    right: 10px;
+    font-family: var(--font-royal);
+    color: var(--gold-primary);
+    font-size: 1.1rem;
+}
+
+/* Nav arrows */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    background: rgba(11, 18, 32, 0.8);
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-light);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-arrow:hover {
+    background: var(--gold-primary);
+    color: var(--bg-dark);
+}
+
+.nav-arrow.prev { left: -25px; }
+.nav-arrow.next { right: -25px; }
+
+.page-hint {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   3. CELEBRATION SCREEN
+   ========================================================================== */
+
+#confetti-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.celebration-container {
+    z-index: 5;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.celebration-card {
+    background: rgba(22, 32, 51, 0.9);
+    border: 2px solid var(--gold-primary);
+    padding: 40px 25px;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(212, 175, 105, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.big-number {
+    font-family: var(--font-royal);
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    text-shadow: 0 0 25px rgba(241, 213, 138, 0.8);
+}
+
+.bday-title {
+    font-family: var(--font-royal);
+    font-size: 1.8rem;
+    color: var(--text-light);
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+.bday-name {
+    font-family: var(--font-royal);
+    font-size: 2.8rem;
+    color: var(--gold-primary);
+    margin-bottom: 20px;
+}
+
+.bday-message {
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Floating balloons */
+.floating-balloons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 40px;
+    height: 50px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    animation: floatUp 8s linear infinite;
+}
+
+.balloon.gold { background: var(--gold-primary); left: 15%; animation-delay: 0s; }
+.balloon.navy { background: #2a3d5c; left: 35%; animation-delay: 2s; }
+.balloon.white { background: #ffffff; left: 65%; animation-delay: 4s; }
+.balloon.gold { background: var(--gold-light); left: 85%; animation-delay: 1s; }
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+    .main-title { font-size: 2.8rem; }
+    .book-container { height: 500px; }
+    .page-inner {
+        grid-template-columns: 1fr;
+        padding: 15px;
+        gap: 10px;
+    }
+    .photo-frame { height: 220px; }
+    .story-text h4 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .story-text p { font-size: 0.85rem; line-height: 1.4; }
+    .nav-arrow.prev { left: 5px; }
+    .nav-arrow.next { right: 5px; }
+    .bday-name { font-size: 2rem; }
+    .big-number { font-size: 4.5rem; }
+}
