@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prince Ishaq — A Magical First Birthday Experience</title>
+    <!-- Google Fonts for Royal Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Background Canvas for Golden Particles & Stars -->
+    <canvas id="stars-canvas"></canvas>
+
+    <!-- Audio Player (Background Soundtrack) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="Audio/Christina_Perri_-_Thousand_years_(mp3.pm).mp3" type="audio/mpeg">
+        <source src="Christina_Perri_-_Thousand_years_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Audio Control Button -->
+    <button id="music-toggle" class="music-btn hidden" aria-label="Toggle Music">
+        <span class="music-icon">🎵</span>
+        <span class="music-status">Music On</span>
+    </button>
+
+    <!-- 1. WELCOME SCREEN -->
+    <section id="welcome-screen" class="screen active">
+        <div class="welcome-container">
+            <div class="crown-emblem">👑</div>
+            <p class="subtitle-royal">Welcome to a Magical Little Kingdom</p>
+            <h1 class="main-title">Prince Ishaq</h1>
+            <p class="tagline">A Little Prince, A Magical First Year</p>
+            <button id="start-btn" class="gold-button">
+                <span>Open the Magic</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- 2. THE ENCHANTED STORYBOOK SCREEN -->
+    <section id="storybook-screen" class="screen hidden">
+        <div class="storybook-wrapper">
+            
+            <div class="book-container">
+                <!-- Navigation Controls -->
+                <button id="prev-btn" class="nav-arrow prev" aria-label="Previous Page">❮</button>
+                <button id="next-btn" class="nav-arrow next" aria-label="Next Page">❯</button>
+
+                <!-- Book Pages Structure -->
+                <div class="storybook" id="storybook">
+                    
+                    <!-- Cover Page -->
+                    <div class="book-page cover active-page" data-page="0">
+                        <div class="cover-content">
+                            <div class="cover-border">
+                                <div class="crown-emblem">👑</div>
+                                <h2>The Magical First Year</h2>
+                                <p class="dedication">Dedicated to Prince Ishaq</p>
+                                <p class="hint-text">✨ Tap Next to open the fairytale ✨</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 1 -->
+                    <div class="book-page" data-page="1">
+                        <div class="page-inner">
+                            <div class="photo-frame">
+                                <img src="Images/130072.webp" alt="Prince Ishaq as a newborn baby with Mickey beanie" onerror="this.src='130072.webp'">
+                            </div>
+                            <div class="story-text">
+                                <h3>Chapter One</h3>
+                                <h4>The Day the World Became Brighter</h4>
+                                <p>Once upon a time, in a world full of wonder, a little prince named Ishaq arrived to fill every heart with boundless love and light. From his very first gentle breath, he turned ordinary days into unforgettable treasures.</p>
+                                <span class="page-number">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 2 -->
+                    <div class="book-page" data-page="2">
+                        <div class="page-inner reverse">
+                            <div class="story-text">
+                                <h3>Chapter Two</h3>
+                                <h4>A Prince in All His Royalty</h4>
+                                <p>Dressed in warmth, grace, and royal elegance, Prince Ishaq brought a unique charm everywhere he went. With his soft brown eyes and sweet, curious gaze, he ruled our hearts effortlessly.</p>
+                                <span class="page-number">2</span>
+                            </div>
+                            <div class="photo-frame">
+                                <img src="Images/130071.webp" alt="Prince Ishaq sitting in traditional royal outfit" onerror="this.src='130071.webp'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3 -->
+                    <div class="book-page" data-page="3">
+                        <div class="page-inner">
+                            <div class="photo-frame">
+                                <img src="Images/130070.webp" alt="Prince Ishaq playing happily on the beach" onerror="this.src='130070.webp'">
+                            </div>
+                            <div class="story-text">
+                                <h3>Chapter Three</h3>
+                                <h4>A World of Sunshine & Discovery</h4>
+                                <p>From sandy shores to bright sunny skies, every new experience became a thrilling fairytale. His tiny steps and bright giggles turned simple moments into magical grand adventures.</p>
+                                <span class="page-number">3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 4 -->
+                    <div class="book-page" data-page="4">
+                        <div class="page-inner reverse">
+                            <div class="story-text">
+                                <h3>Chapter Four</h3>
+                                <h4>Evenings Full of Love</h4>
+                                <p>As starry nights wrapped around the kingdom, Prince Ishaq’s joyful smile shone brighter than any star in the sky, bringing peace, happiness, and sweet warmth to everyone around him.</p>
+                                <span class="page-number">4</span>
+                            </div>
+                            <div class="photo-frame">
+                                <img src="Images/130069.webp" alt="Prince Ishaq sitting outdoors smiling in yellow shirt" onerror="this.src='130069.webp'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 5 -->
+                    <div class="book-page" data-page="5">
+                        <div class="page-inner">
+                            <div class="photo-frame">
+                                <img src="Images/130074.webp" alt="Prince Ishaq smiling brightly" onerror="this.src='130074.webp'">
+                            </div>
+                            <div class="story-text">
+                                <h3>Chapter Five</h3>
+                                <h4>One Year of Pure Happiness</h4>
+                                <p>Today, we look back on 365 days of smiles, discovery, and unconditional love. Prince Ishaq has completed his first wonderful year, leaving a golden trail of happiness in every heart.</p>
+                                <span class="page-number">5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="page-hint">Swipe or tap arrows to flip pages</div>
+        </div>
+    </section>
+
+    <!-- 3. FINAL CINEMATIC BIRTHDAY CELEBRATION -->
+    <section id="celebration-screen" class="screen hidden">
+        <canvas id="confetti-canvas"></canvas>
+        <div class="celebration-container">
+            <div class="floating-balloons">
+                <div class="balloon gold"></div>
+                <div class="balloon navy"></div>
+                <div class="balloon white"></div>
+                <div class="balloon gold"></div>
+            </div>
+
+            <div class="celebration-card">
+                <div class="crown-emblem glow">👑</div>
+                <div class="big-number">1</div>
+                <h1 class="bday-title">HAPPY 1ST BIRTHDAY</h1>
+                <h2 class="bday-name">PRINCE ISHAQ</h2>
+                
+                <p class="bday-message">
+                    "May your little world always be filled with wonder, your days with laughter, and your heart with endless love."
+                </p>
+
+                <button id="replay-btn" class="gold-button">
+                    <span>Relive the Magic ↻</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
